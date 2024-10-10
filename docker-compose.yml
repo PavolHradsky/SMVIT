@@ -7,7 +7,7 @@ services:
 
   nginx:
     image: nginx:latest
-    container_name: nginx
+    container_name: nginx-smvit
     ports:
       - "80:80"
     volumes:
