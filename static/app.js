@@ -1,6 +1,6 @@
 let temperature = document.querySelector("#temperature");
 
-function Main(delay) {
+function updateTemperature(delay) {
     setInterval(async () => {
         const response = await fetch('/temperature');
         const data = await response.json();
@@ -8,4 +8,4 @@ function Main(delay) {
     }, delay);
 }
 
-Main(1000);
+updateTemperature(1000);
