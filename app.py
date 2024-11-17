@@ -9,7 +9,7 @@ app.mount("/static", StaticFiles(directory='static'), name='static')
 
 templates = Jinja2Templates(directory='templates')
 
-app.temperature = 0
+app.temperature = [0]
 
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
@@ -26,5 +26,7 @@ async def get_temperature():
 @app.post('/temperature')
 async def post_temperature(request: Request):
     json = await request.json()
-    app.temperature = json["temperature"]
+    app.temperature.insert(0, json["temperature"])
+    if len(app.temperature) > 50:
+        app.temperature = app.temperature[0:50]
     return JSONResponse({"status": "ok"})
