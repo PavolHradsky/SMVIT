@@ -2,9 +2,11 @@ let temperature = document.querySelector("#temperature");
 let history = document.querySelector("#history");
 let threshold = document.querySelector('#threshold');
 let notification = document.querySelector('#notification');
+let duration = document.querySelector('#duration');
 
 let lastTemp = -1;
 let thresholdValue = -1;
+let startTime = -1;
 
 function updateTemperature(delay) {
     setInterval(async () => {
@@ -27,7 +29,10 @@ updateTemperature(1000);
 document.querySelector('#hide').addEventListener('click', hideNotification)
 
 function showNotification() {
-    notification.classList.remove('hidden');
+    if(notification.classList.contains('hidden')) {
+        notification.classList.remove('hidden');
+        duration.innerHTML = Math.round((Date.now() - startTime) / 1000);
+    }
 }
 
 function hideNotification() {
@@ -36,4 +41,5 @@ function hideNotification() {
 
 threshold.addEventListener('change', () => {
     thresholdValue = parseInt(threshold.value);
+    startTime = Date.now();
 })
