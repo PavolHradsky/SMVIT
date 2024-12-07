@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from datetime import datetime
 
 app = FastAPI()
 
@@ -20,7 +21,8 @@ async def root(request: Request):
 
 @app.get('/temperature')
 async def get_temperature():
-    return JSONResponse({"temperature": app.temperature})
+    # print(datetime.now())
+    return JSONResponse({"temperatures": app.temperature})
 
 
 @app.post('/temperature')
