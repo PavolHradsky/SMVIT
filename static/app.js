@@ -12,8 +12,11 @@ function updateTemperature(delay) {
     setInterval(async () => {
         const response = await fetch('/temperature');
         const data = await response.json();
-        const currentTemp = parseInt(data.temperatures[0]);
+        const currentTemp = parseInt(data.temperatures[0].temperature);
         temperature.innerHTML = currentTemp;
+        data.temperatures = data.temperatures.map(e => {
+            return `${e.timestamp} -> ${e.temperature}`;
+        });
         history.innerHTML = `<li>${data.temperatures.join('</li><li>')}</li>`;
 
         if(currentTemp < thresholdValue && currentTemp < lastTemp) {
